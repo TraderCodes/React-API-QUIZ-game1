@@ -5,7 +5,7 @@ import SetupForm from './SetupForm';
 import Loading from './Loading';
 import Modal from './Modal';
 function App() {
-   const { waiting, loading, questions, correct, index, setNextQuestion } =
+   const { waiting, loading, questions, correct, index, setNextQuestion ,checkAnswer} =
       useGlobalContext();
    // 👇when waiting return form for user to enter
    if (waiting) {
@@ -33,7 +33,7 @@ function App() {
                <div className="btn-container">
                   {answers.map((answer, index) => {
                      return (
-                        <button key={index} className="answer-btn">
+                        <button key={index} className="answer-btn" onClick={() => checkAnswer(correct_answer===answer)}>
                            {answer}
                         </button>
                      );

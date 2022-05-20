@@ -61,9 +61,18 @@ const AppProvider = ({ children }) => {
          if (index > questions.length - 1) {
             return 0;
          } else {
-            return index  ;
+            return index;
          }
       });
+   };
+   //  checkanswer
+   const checkAnswer = (value) => {
+      if (value) {
+         setCorrect((oldState) => oldState + 1);
+         //  jump right to the next question
+      } 
+         setNextQuestion();
+  
    };
    //  start fetching with useeffcts
    useEffect(() => {
@@ -81,6 +90,7 @@ const AppProvider = ({ children }) => {
             correct,
             error,
             setNextQuestion,
+            checkAnswer,
          }}
       >
          {children}

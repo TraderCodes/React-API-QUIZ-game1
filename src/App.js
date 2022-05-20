@@ -5,7 +5,8 @@ import SetupForm from './SetupForm';
 import Loading from './Loading';
 import Modal from './Modal';
 function App() {
-   const { waiting, loading, questions, correct, index } = useGlobalContext();
+   const { waiting, loading, questions, correct, index, setNextQuestion } =
+      useGlobalContext();
    // 👇when waiting return form for user to enter
    if (waiting) {
       return <SetupForm />;
@@ -40,7 +41,9 @@ function App() {
                </div>
             </article>
             {/*🟢 Next question button */}
-            <button className="next-question">Next</button>
+            <button className="next-question" onClick={() => setNextQuestion()}>
+               Next
+            </button>
          </section>
       </main>
    );

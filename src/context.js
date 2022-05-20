@@ -55,7 +55,16 @@ const AppProvider = ({ children }) => {
          setWaiting(true);
       }
    };
-
+   const setNextQuestion = () => {
+      setIndex((oldIndex) => {
+         const index = oldIndex + 1;
+         if (index > questions.length - 1) {
+            return 0;
+         } else {
+            return index  ;
+         }
+      });
+   };
    //  start fetching with useeffcts
    useEffect(() => {
       fetchQuestion(tempUrl);
@@ -64,7 +73,15 @@ const AppProvider = ({ children }) => {
    //  =================================================================
    return (
       <AppContext.Provider
-         value={{ waiting, loading, index, questions, correct, error }}
+         value={{
+            waiting,
+            loading,
+            index,
+            questions,
+            correct,
+            error,
+            setNextQuestion,
+         }}
       >
          {children}
       </AppContext.Provider>

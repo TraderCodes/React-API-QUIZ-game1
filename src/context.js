@@ -59,7 +59,10 @@ const AppProvider = ({ children }) => {
       setIndex((oldIndex) => {
          const index = oldIndex + 1;
          if (index > questions.length - 1) {
-            return 0;
+            //  once end of the question openModal
+            openModal();
+return 0
+          
          } else {
             return index;
          }
@@ -70,10 +73,19 @@ const AppProvider = ({ children }) => {
       if (value) {
          setCorrect((oldState) => oldState + 1);
          //  jump right to the next question
-      } 
-         setNextQuestion();
-  
-   };
+      }
+      setNextQuestion();
+
+    };
+    const openModal = () => {
+       setIsModalOpen(true);
+    };
+    const closeModal = () => {
+      // show the form after closeModal
+      setWaiting(true);
+      setCorrect(0)
+      setIsModalOpen(false)
+    }
    //  start fetching with useeffcts
    useEffect(() => {
       fetchQuestion(tempUrl);
@@ -91,6 +103,8 @@ const AppProvider = ({ children }) => {
             error,
             setNextQuestion,
             checkAnswer,
+            closeModal,
+            isModalOpen
          }}
       >
          {children}

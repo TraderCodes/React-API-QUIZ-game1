@@ -82,8 +82,8 @@ const AppProvider = ({ children }) => {
       setNextQuestion();
    };
    const openModal = () => {
-   setIsModalOpen(true);
-};
+      setIsModalOpen(true);
+   };
    const closeModal = () => {
       // show the form after closeModal
       setWaiting(true);
@@ -91,7 +91,10 @@ const AppProvider = ({ children }) => {
       setIsModalOpen(false);
    };
    const handleChange = (e) => {
-   console.log(e);
+      const name = e.target.name;
+      const value = e.target.value;
+      // return old quiz and just change
+      setQuiz({ ...quiz, [name]: value });
    };
    // After submitting the form for the options
    const handleSubmit = (e) => {
@@ -101,7 +104,7 @@ const AppProvider = ({ children }) => {
    //  =================================================================
    return (
       <AppContext.Provider
-      value={{
+         value={{
             waiting,
             loading,
             index,

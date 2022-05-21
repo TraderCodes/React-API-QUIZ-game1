@@ -29,6 +29,12 @@ const AppProvider = ({ children }) => {
    // ! if failed to fetch display error
    const [error, setError] = useState(false);
    const [isModalOpen, setIsModalOpen] = useState(false);
+   // !Set quiz  input
+   const [quiz, setQuiz] = useState({
+      amount: 10,
+      category: 'sports',
+      difficulty: 'easy',
+   });
    // todo FETCH 🟢
    const fetchQuestion = async (url) => {
       setLoading(true);
@@ -61,8 +67,7 @@ const AppProvider = ({ children }) => {
          if (index > questions.length - 1) {
             //  once end of the question openModal
             openModal();
-return 0
-          
+            return 0;
          } else {
             return index;
          }
@@ -75,26 +80,28 @@ return 0
          //  jump right to the next question
       }
       setNextQuestion();
-
-    };
-    const openModal = () => {
-       setIsModalOpen(true);
-    };
-    const closeModal = () => {
+   };
+   const openModal = () => {
+   setIsModalOpen(true);
+};
+   const closeModal = () => {
       // show the form after closeModal
       setWaiting(true);
-      setCorrect(0)
-      setIsModalOpen(false)
-    }
-   //  start fetching with useeffcts
-   useEffect(() => {
-      fetchQuestion(tempUrl);
-   }, []);
+      setCorrect(0);
+      setIsModalOpen(false);
+   };
+   const handleChange = (e) => {
+   console.log(e);
+   };
+   // After submitting the form for the options
+   const handleSubmit = (e) => {
+      e.preventDefault();
+   };
 
    //  =================================================================
    return (
       <AppContext.Provider
-         value={{
+      value={{
             waiting,
             loading,
             index,
@@ -104,7 +111,10 @@ return 0
             setNextQuestion,
             checkAnswer,
             closeModal,
-            isModalOpen
+            isModalOpen,
+            quiz,
+            handleChange,
+            handleSubmit,
          }}
       >
          {children}

@@ -5,8 +5,15 @@ import SetupForm from './SetupForm';
 import Loading from './Loading';
 import Modal from './Modal';
 function App() {
-   const { waiting, loading, questions, correct, index, setNextQuestion ,checkAnswer} =
-      useGlobalContext();
+   const {
+      waiting,
+      loading,
+      questions,
+      correct,
+      index,
+      setNextQuestion,
+      checkAnswer,
+   } = useGlobalContext();
    // 👇when waiting return form for user to enter
    if (waiting) {
       return <SetupForm />;
@@ -17,8 +24,17 @@ function App() {
    //  if is not loading or waiting show 🟢quiz app
    console.log(questions);
    const { question, incorrect_answers, correct_answer } = questions[index];
-   const answers = [...incorrect_answers, correct_answer];
-   console.log(answers);
+   // const answers = [...incorrect_answers, correct_answer];
+   let answers = [...incorrect_answers ];
+   // set a random number between 0 and 3
+   const tempIndex = Math.floor(Math.random() * 4);
+
+   if (tempIndex === 3) {
+      answers.push(correct_answer);
+   } else {
+      answers.push(answers[tempIndex]);
+      answers[tempIndex] = correct_answer;
+   }
    return (
       <main>
          <Modal />
@@ -33,7 +49,13 @@ function App() {
                <div className="btn-container">
                   {answers.map((answer, index) => {
                      return (
-                        <button key={index} className="answer-btn" onClick={() => checkAnswer(correct_answer===answer)}>
+                        <button
+                           key={index}
+                           className="answer-btn"
+                           onClick={() =>
+                              checkAnswer(correct_answer === answer)
+                           }
+                        >
                            {answer}
                         </button>
                      );

@@ -96,9 +96,13 @@ const AppProvider = ({ children }) => {
       // return old quiz and just change
       setQuiz({ ...quiz, [name]: value });
    };
-   // After submitting the form for the options
+   // After submitting the form change url and get new API
    const handleSubmit = (e) => {
       e.preventDefault();
+
+      const { amount, category, difficulty } = quiz;
+      const url = `${API_ENDPOINT}amount=${amount}&difficulty=${difficulty}&category=${category} &category=${table[category]}&type=multiple`;
+      fetchQuestion(url);
    };
 
    //  =================================================================
